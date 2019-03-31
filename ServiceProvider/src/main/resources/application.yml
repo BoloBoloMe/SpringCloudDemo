@@ -21,3 +21,13 @@ eureka:
   client: #客户端注册进eureka服务列表内
     service-url:
       defaultZone: http://localhost:7001/eureka # 访问 eureka service 中配置的 eureka.client.service-url.defaultZone 地址
+      # 对eureka页面上的部分内容进行优化性设置
+  instance:
+    instance-id: my-service-provider-1 # 给当前实例起一个id,通过该id可在eureka页面上标识当前实例.默认id为 ip:服务名称:端口
+    prefer-ip-address: true # 鼠标移动到实例id后,窗口左下角显示ip地址
+
+info:
+  app.name: SpringCloudDemo
+  company.name: www.bolo.demo
+  build.artifactId: $project.artifactId$ # $XXX$ 的意思是获取运行时的这些信息 ，'$' 符号是在父工程的 maven-resources-plugin <delimiters> 中指定的
+  build.version: $project.version$
