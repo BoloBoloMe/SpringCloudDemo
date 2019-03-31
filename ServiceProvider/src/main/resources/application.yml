@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+# 服务名称
+  application:
+    name: my-service-provider
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  type-aliases-package: com.bolo.demo.dao.entitys.*
+  #将数据库中下划线命名风格自动转换为驼峰式命名风格
+  configuration.map-underscore-to-camel-case: true
+
+# eureka相关配置
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone: http://localhost:7001/eureka # 访问 eureka service 中配置的 eureka.client.service-url.defaultZone 地址
