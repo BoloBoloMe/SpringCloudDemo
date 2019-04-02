@@ -21,9 +21,9 @@ mybatis:
 eureka:
   client: #客户端注册进eureka服务列表内
     service-url:
-      defaultZone: http://localhost:7001/eureka # 访问 eureka service 中配置的 eureka.client.service-url.defaultZone 地址
-      # 对eureka页面上的部分内容进行优化性设置
-  instance:
+#      defaultZone: http://localhost:7001/eureka/ # (eureka service单机配置)访问 eureka service 中配置的 eureka.client.service-url.defaultZone 地址
+      defaultZone: http://myeurekaservice7011:7011/eureka/,http://myeurekaservice7012:7012/eureka/,http://myeurekaservice7013:7013/eureka/ # eureka service集群版配置
+  instance: # 对eureka页面上的部分内容进行优化性设置
     instance-id: my-service-provider-1 # 给当前实例起一个id,通过该id可在eureka页面上标识当前实例.默认id为 ip:服务名称:端口
     prefer-ip-address: true # 鼠标移动到实例id后,窗口左下角显示ip地址
 

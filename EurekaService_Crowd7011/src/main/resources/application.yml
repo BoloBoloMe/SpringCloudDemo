@@ -1,17 +1,17 @@
 server:
-  port: 7001
+  port: 7011
 
 eureka:
   instance:
-    hostname: localhost #eureka服务端的实例名称
+    hostname: myeurekaservice7011 #eureka服务端的实例名称 对应本实例的访问地址
   client:
     register-with-eureka: false     #false表示不向注册中心注册自己.
     fetch-registry: false     #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ #设置与Eureka Server交互的地址,客户端通过这个地址进行查询服务和注册服务（单机）。
+     # defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ # 单机版配置,填写自己的访问地址
+      defaultZone: http://myeurekaservice7012:7012/eureka/,http://myeurekaservice7013:7013/eureka/ # 集群版配置,填集群中其他Eureka服务器的访问地址
   server:
     # eureka的自我保护机制 默认打开。开启之后不在注销任何服务实例，即使某服务已经停止。如果关闭，eureka 在一段时间内(默认90秒)没有收到实例的心跳就会注销该实例
     enable-self-preservation: true
-
 
 

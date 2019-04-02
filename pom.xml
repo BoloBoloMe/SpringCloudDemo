@@ -13,6 +13,9 @@
         <module>ServiceProvider</module>
         <module>ServiceConsumer</module>
         <module>EurekaService</module>
+        <module>EurekaService_Crowd7011</module>
+        <module>EurekaService_Crowd7012</module>
+        <module>EurekaService_Crowd7013</module>
     </modules>
     <description>父项目</description>
 
