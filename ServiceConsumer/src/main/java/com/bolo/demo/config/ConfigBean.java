@@ -26,7 +26,7 @@ public class ConfigBean {
     }
 
     /**
-     * 创建IRule bean 选择ribbon的负载均衡算法
+     * 创建IRule bean 选择ribbon的负载均衡算法。默认是轮询
      *
      * @return
      */
