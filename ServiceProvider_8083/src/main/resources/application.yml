@@ -1,0 +1,33 @@
+server:
+  port: 8083
+
+spring:
+# 服务名称
+  application:
+    name: my-service-provider
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  type-aliases-package: com.bolo.demo.dao.entitys.*
+  #将数据库中下划线命名风格自动转换为驼峰式命名风格
+  configuration.map-underscore-to-camel-case: true
+
+# eureka相关配置
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+#      defaultZone: http://localhost:7001/eureka/ # (eureka service单机配置)访问 eureka service 中配置的 eureka.client.service-url.defaultZone 地址
+      defaultZone: http://myeurekaservice7011:7011/eureka/,http://myeurekaservice7012:7012/eureka/,http://myeurekaservice7013:7013/eureka/ # eureka service集群版配置
+  instance: # 对eureka页面上的部分内容进行优化性设置
+    instance-id: my-service-provider-8083 # 给当前实例起一个id,通过该id可在eureka页面上标识当前实例.默认id为 ip:服务名称:端口
+    prefer-ip-address: true # 鼠标移动到实例id后,窗口左下角显示ip地址
+
+info:
+  app.name: SpringCloudDemo
+  company.name: www.bolo.demo
+  build.artifactId: $project.artifactId$ # $XXX$ 的意思是获取运行时的这些信息 ，'$' 符号是在父工程的 maven-resources-plugin <delimiters> 中指定的
+  build.version: $project.version$

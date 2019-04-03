@@ -7,10 +7,11 @@
         <groupId>com.bolo.demo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <description>服务消费者</description>
+    <description>服务提供者模块</description>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ServiceConsumer</artifactId>
+    <artifactId>ServiceProvider_8082</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- 依赖公共接口模块 -->
@@ -19,19 +20,44 @@
             <groupId>com.bolo.demo</groupId>
             <version>${project.version}</version>
         </dependency>
-        <!-- Ribbon相关 -->
-        <!-- ribbon 作为一个客户端负责均衡工具，是需要依赖eureka的包的 -->
+        <!-- actuator监控信息完善 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- 要将微服务provider侧注册进eureka server,需要依赖eureka client -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-ribbon</artifactId>
+            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- 用jetty部署 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,4 +77,5 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
     </dependencies>
+
 </project>

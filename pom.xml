@@ -10,7 +10,6 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>CommonApi</module>
-        <module>ServiceProvider</module>
         <module>ServiceConsumer</module>
         <module>EurekaService</module>
         <module>EurekaService_Crowd7011</module>
