@@ -15,6 +15,9 @@
         <module>EurekaService_Crowd7011</module>
         <module>EurekaService_Crowd7012</module>
         <module>EurekaService_Crowd7013</module>
+        <module>ServiceProvider_8081</module>
+        <module>ServiceProvider_8082</module>
+        <module>ServiceProvider_8083</module>
     </modules>
     <description>父项目</description>
 
