@@ -5,8 +5,10 @@ import com.bolo.demo.entity.resp.QueryFruitResp;
 import com.bolo.demo.service.QueryService;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +32,9 @@ public class QueryController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @Value("${eureka.instance.instance-id}")
+    private String instanceId;
+
     /**
      * 查询水果
      *
@@ -38,7 +43,9 @@ public class QueryController {
      */
     @RequestMapping(value = "fruit", method = RequestMethod.GET)
     public QueryFruitResp queryFruit(QueryFruitReq req, HttpServletRequest request) {
-        return queryService.queryFruit(req);
+        QueryFruitResp resp = queryService.queryFruit(req);
+        resp.setInstanceId(instanceId);
+        return resp;
     }
 
     /**

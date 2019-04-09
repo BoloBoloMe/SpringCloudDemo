@@ -7,6 +7,11 @@ import com.bolo.demo.enums.ResultCode;
  */
 public abstract class BaseResp {
     /**
+     * 实例id
+     */
+    protected String instanceId;
+
+    /**
      * 结果码
      */
     protected String code;
@@ -15,6 +20,14 @@ public abstract class BaseResp {
      * 说明信息
      */
     protected String msg;
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+    }
 
     public String getCode() {
         return code;
