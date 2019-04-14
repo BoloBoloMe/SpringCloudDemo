@@ -2,7 +2,10 @@ package com.bolo.demo.controller;
 
 import com.bolo.demo.entity.req.QueryFruitReq;
 import com.bolo.demo.entity.resp.QueryFruitResp;
+import com.bolo.demo.enums.ResultCode;
 import com.bolo.demo.service.QueryService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,13 +45,33 @@ public class QueryController {
 	 * @param req
 	 * @return
 	 * 
-	 * @RequestBody：通过restTemplate 发送POST 请求并且发送了请求类时，必须以json的数据格式接收请求对象 
+	 * @RequestBody：通过restTemplate 发送POST 请求并且发送了请求类时，必须以json的数据格式接收请求对象
 	 */
 	@RequestMapping(value = "fruit", method = RequestMethod.POST)
+	// 服务熔断：一旦调用服务方法失败并抛出了错误信息后，会自动调用@HystrixCommand标注好的fallbackMethod调用类中的指定方法
+	@HystrixCommand(fallbackMethod = "queryFruitFallBack")
 	public QueryFruitResp queryFruit(@RequestBody QueryFruitReq req, HttpServletRequest request) {
+		// 人为制造一个异常抛出: 如果传入参数中带有"exce"字符串就抛出异常
+		if ("exce".equalsIgnoreCase(req.getSciName()) || "exce".equalsIgnoreCase(req.getType())) {
+			throw new RuntimeException("抛出指定异常");
+		}
+
 		QueryFruitResp resp = queryService.queryFruit(req);
 		resp.setInstanceId(instanceId);
 		return resp;
+	}
+
+	/**
+	 * 查询水果方法的错误回调方法
+	 * 
+	 * @param req
+	 * @param request
+	 * @return
+	 */
+	public QueryFruitResp queryFruitFallBack(@RequestBody QueryFruitReq req, HttpServletRequest request) {
+		QueryFruitResp fallBack = new QueryFruitResp();
+		fallBack.setFail(ResultCode.fail, "查询失败，系统出现异常！！！");
+		return fallBack;
 	}
 
 	/**

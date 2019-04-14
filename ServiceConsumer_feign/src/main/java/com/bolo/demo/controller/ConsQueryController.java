@@ -2,6 +2,8 @@ package com.bolo.demo.controller;
 
 import com.bolo.demo.entity.req.QueryFruitReq;
 import com.bolo.demo.entity.resp.QueryFruitResp;
+import com.bolo.demo.service.ClientQueryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +16,12 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 public class ConsQueryController {
+	
+	/**
+	 * 基于feign的查续服务接口
+	 */
 	@Autowired
-	RestTemplate restTemplate;
+	private ClientQueryService queryServce;
 
 	/**
 	 * 查询水果
@@ -25,19 +31,6 @@ public class ConsQueryController {
 	 */
 	@RequestMapping(value = "fruit", method = RequestMethod.GET)
 	public QueryFruitResp queryFruit(QueryFruitReq req) {
-		StringBuilder url = new StringBuilder(ServiceUrl.GET_FRUITS);
-		// get 方法需要拼接url
-//        if (!StringUtils.isEmpty(req.getType()) || !StringUtils.isEmpty(req.getSciName())) {
-//            url.append('?');
-//            if (req.getType() != null) {
-//                url.append("type=").append(req.getType());
-//            }
-//            if (req.getSciName() != null) {
-//                url.append("sciName=").append(req.getSciName());
-//            }
-//        }
-
-		// post 方法直接发送请求类
-		return restTemplate.postForObject(url.toString(), req, QueryFruitResp.class);
+		return queryServce.queryFruit(req);
 	}
 }

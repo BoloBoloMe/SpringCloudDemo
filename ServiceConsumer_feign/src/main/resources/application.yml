@@ -1,0 +1,9 @@
+server:
+  port: 81
+
+# 客户端添加eureka配置
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://myeurekaservice7011:7011/eureka/,http://myeurekaservice7012:7012/eureka/,http://myeurekaservice7013:7013/eureka/
