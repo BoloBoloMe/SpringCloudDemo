@@ -7,3 +7,8 @@ eureka:
     register-with-eureka: false
     service-url:
       defaultZone: http://myeurekaservice7011:7011/eureka/,http://myeurekaservice7012:7012/eureka/,http://myeurekaservice7013:7013/eureka/
+
+# feign 配置：开启hystrix组件功能
+feign:
+  hystrix:
+    enabled: true

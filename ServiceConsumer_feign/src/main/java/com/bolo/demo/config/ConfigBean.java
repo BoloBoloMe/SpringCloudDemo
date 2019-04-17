@@ -2,6 +2,7 @@ package com.bolo.demo.config;
 
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RandomRule;
+import com.netflix.loadbalancer.RoundRobinRule;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class ConfigBean {
     @Bean
-    public ClientHttpRequestFactory simpleClientHttpRequestFactory() {
+    public ClientHttpRequestFactory clientHttpRequestFactory() {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         factory.setConnectTimeout(15000);
         factory.setReadTimeout(5000);
@@ -21,8 +22,8 @@ public class ConfigBean {
 
     @Bean
     @LoadBalanced // 开启ribbon的负载均衡
-    public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
-        return new RestTemplate(factory);
+    public RestTemplate restTemplate(ClientHttpRequestFactory clientHttpRequestFactory) {
+        return new RestTemplate(clientHttpRequestFactory);
     }
 
     /**
@@ -33,6 +34,9 @@ public class ConfigBean {
     @Bean
     public IRule iRule() {
         // 随机算法
-        return new RandomRule();
+//        return new RandomRule();
+
+        // 轮询算法
+        return new RoundRobinRule();
     }
 }
